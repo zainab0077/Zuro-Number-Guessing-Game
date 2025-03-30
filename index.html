@@ -123,7 +123,7 @@
     </div>
 
     <script>
-        const randomNumber = Math.floor(Math.random() * 100) ;
+        const randomNumber = Math.floor(Math.random() * 100) + 1 ;
         let previousGuesses = [];
 
         function checkGuess() {
@@ -131,10 +131,15 @@
             const result = document.getElementById('result');
             const guessList = document.getElementById('guessList');
 
-            if (isNaN(userGuess) || userGuess < 1 || userGuess > 100) {
+	if (isNaN(userGuess)) {
                 result.textContent = "Please enter a valid number between 1 and 100.";
                 return;
             }
+	if (userGuess < 1 || userGuess > 100) {
+                result.textContent = "Please enter a valid number between 1 and 100.";
+                return;
+            }
+
 
             // Add the guess to the list of previous guesses
             previousGuesses.push(userGuess);
@@ -153,8 +158,21 @@
                 result.textContent = "Too high! Try again.";
             } else {
                 result.textContent = "Congratulations! You guessed the correct number: " + randomNumber;
+		const restartBtn = document.createElement('button');
+		restartBtn.textContent = 'Play Angain';
+		restartBtn.onclick = restartGame;
+		result.appendChild(restartBtn);
             }
         }
+
+function restartGame() {
+	randomNumber = Math.floor(Math.random() * 100) + 1;
+	previousGuesses = [];
+
+	documet.getElementById('result').textContext = '';
+	documet.getElementById('guessList').textContext = '';
+	documet.getElementById('userInput').value = '';
+}
     </script>
 </body>
 </html>
